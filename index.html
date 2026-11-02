@@ -1,74 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Looping text animation effects built with Anime.js: staggered letter timelines in plain HTML, CSS and JavaScript.">
   <title>AnimeJS Text Animation Effects</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<section>
-  <h2 class="text">AnimeJS Text Animation Effects</h2>
-</section>
+  <section>
+    <h2 class="text">AnimeJS Text Animation Effects</h2>
+  </section>
+
   <script src="anime.min.js"></script>
   <script>
-    // now, split text into words
+    // Wrap every non-space character in its own span so it can be animated individually
     const text = document.querySelector('.text');
-    text.innerHTML = text.textContent.replace(/\S/g, "<span>$&</span>");
+    text.innerHTML = text.textContent.replace(/\S/g, '<span>$&</span>');
 
     anime.timeline({
       loop: true
     })
 
+    // 1. Letters fly in from above, growing from scale 10 to 1
     .add({
       targets: '.text span',
-      translateY: [-600, 0], // [start value, end value]
-      scale: [10,1], // [start value, end value]
-      opacity: [0,1], // [start value, end value]
-      easing: "easeOutExpo",
-      duration: 1500, //1.5seconds
-      delay: anime.stagger(100),
+      translateY: [-600, 0],
+      scale: [10, 1],
+      opacity: [0, 1],
+      easing: 'easeOutExpo',
+      duration: 1500,
+      delay: anime.stagger(100)
     })
 
+    // 2. Letters slide out to the left and fade away
     .add({
       targets: '.text span',
-      translateX: [0, -1000], // [start value, end value]
-      scale: [1,1], // [start value, end value]
-      opacity: [1,0], // [start value, end value]
-      easing: "easeOutExpo",
-      duration: 2000, //1.5seconds
-      delay: anime.stagger(100),
+      translateX: [0, -1000],
+      opacity: [1, 0],
+      easing: 'easeOutExpo',
+      duration: 2000,
+      delay: anime.stagger(100)
     })
 
+    // 3. Letters slide back in from the right
     .add({
       targets: '.text span',
-      translateX: [1000, 0], // [start value, end value]
-      scale: [1,1], // [start value, end value]
-      opacity: [0,1], // [start value, end value]
-      easing: "easeOutExpo",
-      duration: 2000, //1.5seconds
-      delay: anime.stagger(100),
+      translateX: [1000, 0],
+      opacity: [0, 1],
+      easing: 'easeOutExpo',
+      duration: 2000,
+      delay: anime.stagger(100)
     })
 
+    // 4. Letters zoom outward and fade out
     .add({
       targets: '.text span',
-      translateX: [0, 0], // [start value, end value]
-      scale: [1,50], // [start value, end value]
-      opacity: [1,0], // [start value, end value]
-      easing: "easeOutExpo",
-      duration: 2000, //1.5seconds
-      delay: anime.stagger(100),
-    })
-
-
-    
+      scale: [1, 50],
+      opacity: [1, 0],
+      easing: 'easeOutExpo',
+      duration: 2000,
+      delay: anime.stagger(100)
+    });
   </script>
-
-
-
-  <script src="script.js"></script>
 </body>
 
 </html>
